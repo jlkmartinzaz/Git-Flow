@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Demo WebAssembly</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Suma con WebAssembly (C + HTML + CSS)</h1>
+<div class="container">
+<input id="a" type="number" value="3" placeholder="Número A">  
+<input id="b" type="number" value="4" placeholder="Número B">
+<button id="calc">Sumar</button>
+<p id="result"></p>
+</div>
+<!-- Cargamos el puente JS generado por Emscripten -->
+<script src="sum.js"></script><script>
+Module.onRuntimeInitialized = () => {
+document.getElementById("calc").onclick = () => {
+const a = parseInt(document.getElementById("a").value);
+const b = parseInt(document.getElementById("b").value);
+const r = Module._sum(a, b); 
+document.getElementById("result").textContent = `Resultado: ${r}`;
+      };};
+</script>
+</body>
+</html>
+
