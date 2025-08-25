@@ -6,41 +6,41 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<<<<<<< HEAD
-<h1>Suma con WebAssembly (C + HTML + CSS)</h1>
-<div class="container">
-<input id="a" type="number" value="3" placeholder="Número A">  
-<input id="b" type="number" value="4" placeholder="Número B">
-<button id="calc">Sumar</button>
-<p id="result"></p>
-</div>
-<!-- Cargamos el puente JS generado por Emscripten -->
-=======
 <h1>WebAssembly (C + HTML + CSS)</h1>
 <div class="container">
 <input id="a" type="number" value="3" placeholder="Número A">  
 <input id="b" type="number" value="4" placeholder="Número B">
-<button onclick="alert('3 + 4 = ' + sum(3,4))">Sumar 3 + 4</button>
-<button onclick="alert('3 × 4 = ' + multiply(3,4))">Multiplicar 3 × 4</button>
-<p id="sumresult">
-<p id="multresult">
-</p>
+<button id="calc-sum">Sumar</button>
+<button id="calc-mult">Multiplicar</button>
+<p id="sumresult">Resultado suma: </p>
+<p id="multresult">Resultado multiplicación: </p>
 </div>
->>>>>>> featuremultiplicar
-<script src="sum.js"></script><script>
+
+<script src="sum.js"></script>
+<script>
 Module.onRuntimeInitialized = () => {
-document.getElementById("calc").onclick = () => {
-const a = parseInt(document.getElementById("a").value);
-const b = parseInt(document.getElementById("b").value);
-const r = Module._sum(a, b); 
-document.getElementById("result").textContent = `Resultado: ${r}`;
-<<<<<<< HEAD
-      };};
-=======
+  const sumBtn = document.getElementById("calc-sum");
+  const multBtn = document.getElementById("calc-mult");
+  const aInput = document.getElementById("a");
+  const bInput = document.getElementById("b");
+  const sumResult = document.getElementById("sumresult");
+  const multResult = document.getElementById("multresult");
+
+  sumBtn.onclick = () => {
+    const a = parseInt(aInput.value);
+    const b = parseInt(bInput.value);
+    const r = Module._sum(a, b);
+    sumResult.textContent = `Resultado suma: ${r}`;
+  };
+
+  multBtn.onclick = () => {
+    const a = parseInt(aInput.value);
+    const b = parseInt(bInput.value);
+    const r = Module._multiply(a, b); 
+    multResult.textContent = `Resultado multiplicación: ${r}`;
+  };
 };
-};
->>>>>>> featuremultiplicar
 </script>
 </body>
 </html>
-
+:
