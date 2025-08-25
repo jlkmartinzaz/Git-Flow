@@ -1,0 +1,132 @@
+\documentclass[a4paper,12pt]{article}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Paquetes para código
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Configuración de listings
+\lstset{
+	basicstyle=\ttfamily\small,
+	backgroundcolor=\color[gray]{0.95},
+	frame=single,
+	breaklines=true,
+	showstringspaces=false
+}
+
+% Título
+\title{Informe de Creación y Ejecución de Proyecto en C y WebAssembly}
+\author{Tu Nombre}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Introducción}
+	Este informe describe el proceso de creación de un programa en C,
+	su compilación a WebAssembly mediante \texttt{Emscripten}, la
+	configuración de entorno con Vim y Git, así como la ejecución de un
+	servidor local para probar los resultados.
+	
+	\section{Instalación de Emscripten}
+	Para instalar Emscripten en Linux (Debian), se siguieron los
+	siguientes pasos:
+	
+	\begin{lstlisting}[language=bash]
+		git clone https://github.com/emscripten-core/emsdk.git
+		cd emsdk
+		./emsdk install latest
+		./emsdk activate latest
+		source ./emsdk_env.sh
+	\end{lstlisting}
+	
+	\section{Código en C}
+	El siguiente programa implementa las funciones de suma y multiplicación:
+	
+	\begin{lstlisting}[language=C]
+		#include <stdio.h>
+		
+		int sum(int a, int b) {
+			return a + b;
+		}
+		
+		int multiply(int a, int b) {
+			return a * b;
+		}
+	\end{lstlisting}
+	
+	\section{Compilación con Emscripten}
+	Se compila el programa a WebAssembly con:
+	
+	\begin{lstlisting}[language=bash]
+		emcc sum.c -o sum.js -s EXPORTED_FUNCTIONS="['_sum','_multiply']"
+	\end{lstlisting}
+	
+	\section{Servidor Local}
+	Para activar el servidor en el puerto 8000 y probar el resultado:
+	
+	\begin{lstlisting}[language=bash]
+		python3 -m http.server 8000
+	\end{lstlisting}
+	
+	\section{Plugins de Vim}
+	Durante el desarrollo se utilizaron los siguientes plugins de Vim:
+	
+	\begin{itemize}
+		\item \textbf{NERDTree}: exploración de archivos.
+		\item \textbf{vim-airline}: barra de estado mejorada.
+		\item \textbf{ale / syntastic}: linting en C y HTML.
+		\item \textbf{vim-fugitive}: integración con Git.
+	\end{itemize}
+	
+	\section{Uso de Git Flow}
+	Para gestionar ramas de desarrollo, se instaló y configuró Git Flow:
+	
+	\begin{lstlisting}[language=bash]
+		sudo apt install git-flow
+	\end{lstlisting}
+	
+	\section{Conclusiones}
+	El proyecto permitió integrar C con WebAssembly, probarlo en un
+	entorno web sencillo y documentar el flujo de trabajo con herramientas
+	modernas de control de versiones y edición.
+	
+\end{document}
+
+	
+	El flujo de ramas incluyó:
+	\begin{itemize}
+		\item \texttt{main}: versión estable
+		\item \texttt{develop}: integración de nuevas funciones
+		\item \texttt{feature/*}: ramas de características (ej: multiplicar)
+	\end{itemize}
+	
+	\subsection{Plugins de Vim}
+	Se instalaron plugins para mejorar la productividad:
+	\begin{itemize}
+		\item \textbf{NERDTree}: explorador de archivos
+		\item \textbf{vim-airline}: barra de estado mejorada
+		\item \textbf{ale}: linting en tiempo real
+		\item \textbf{vim-fugitive}: integración con Git
+	\end{itemize}
+	
+	\section{Resultados}
+	La aplicación web permite ingresar dos números, realizar operaciones de suma y multiplicación, y visualizar los resultados directamente en la página. El estilo se mejoró con CSS para ofrecer un diseño más agradable en modo oscuro.
+	
+	\section{Conclusiones}
+	Se logró comprender el flujo completo desde la creación del código en C hasta su ejecución en un navegador mediante WebAssembly. Asimismo, se exploraron buenas prácticas en el uso de Git-Flow y Vim como entornos de desarrollo.
+	
+	\section{Referencias}
+	\begin{itemize}
+		\item Documentación oficial de Emscripten: \url{https://emscripten.org}
+		\item Pandoc para conversión de documentos: \url{https://pandoc.org}
+		\item Git-Flow cheatsheet: \url{https://danielkummer.github.io/git-flow-cheatsheet/}
+	\end{itemize}
+\end{document}
